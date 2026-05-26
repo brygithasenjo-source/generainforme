@@ -1,3 +1,4 @@
+import './index.css';
 import { auth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from './firebase.js';
 
 // ===================================================
