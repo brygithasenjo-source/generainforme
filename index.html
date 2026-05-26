@@ -1,161 +1,505 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema Visual Clínico · Para Psicólogos</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sistema Visual Clínico · Para Psicólogos</title>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700;900&family=Nunito:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+  </style>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        premium: {
-                            purple: '#6D28D9',       /* Púrpura principal vibrante */
-                            purpleDark: '#4C1D95',   /* Púrpura oscuro para textos */
-                            purpleLight: '#F3E8FF',  /* Fondo suave púrpura */
-                            dark: '#111827',
-                            gray: '#6B7280',
-                            card: '#FFFFFF'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['DM Sans', 'sans-serif'],
-                        serif: ['Outfit', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'lux': '0 25px 50px -12px rgba(76, 29, 149, 0.25)'
-                    }
-                }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            premium: {
+              purple: '#6D28D9',
+              purpleDark: '#4C1D95',
+              purpleLight: '#F3E8FF',
+              dark: '#111827',
+              gray: '#6B7280'
             }
+          },
+          fontFamily: {
+            sans: ['DM Sans', 'sans-serif'],
+            serif: ['Outfit', 'sans-serif'],
+          },
+          boxShadow: { 'lux': '0 25px 50px -12px rgba(76, 29, 149, 0.25)' }
         }
-    </script>
-    <link rel="stylesheet" href="/src/index.css">
-    
-    <style>
-        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Estilos de input limpios y premium */
-        .input-lux {
-            width: 100%;
-            background-color: #ffffff;
-            border: 2px solid #E5E7EB;
-            color: #111827;
-            border-radius: 0.75rem;
-            transition: all 0.3s ease;
-        }
-        .input-lux:focus {
-            outline: none;
-            border-color: #6D28D9;
-            box-shadow: 0 0 0 4px rgba(109, 40, 217, 0.1);
-        }
-    </style>
+      }
+    }
+  </script>
+
+  <link rel="stylesheet" href="./src/index.css">
 </head>
-<body class="font-sans antialiased text-premium-dark selection:bg-premium-purpleLight selection:text-premium-purpleDark">
+<body>
 
-    <div id="login-screen" class="w-full min-h-screen flex items-center justify-center relative z-50 px-6 bg-gradient-to-br from-[#4C1D95] via-[#6D28D9] to-[#9333EA]">
-        
-        <div class="bg-white p-10 rounded-[2rem] shadow-lux max-w-md w-full text-center fade-in">
-            
-            <img src="https://res.cloudinary.com/duubcmn0b/image/upload/v1779323207/ia-psicologos-logos.png_qtcoal.png" alt="Logo PsicoStories" class="w-20 h-20 mx-auto rounded-full shadow-md mb-6 border border-gray-100">
-            
-            <h2 class="font-serif text-3xl text-premium-dark font-bold mb-1">Acceso Privado</h2>
-            <p class="text-premium-gray text-sm mb-8 font-medium">Sistema Visual Clínico</p>
-            
-            <form id="login-form" class="space-y-5 text-left">
-                <div>
-                    <label class="block mb-1.5 text-sm font-bold text-premium-dark">Correo Electrónico</label>
-                    <input type="email" id="login-email" class="input-lux py-3 px-4" placeholder="tu@correo.com" required>
-                </div>
-                <div>
-                    <label class="block mb-1.5 text-sm font-bold text-premium-dark">Contraseña</label>
-                    <input type="password" id="login-password" class="input-lux py-3 px-4" placeholder="••••••••" required>
-                </div>
-                
-                <p id="login-error" class="hidden text-red-500 text-xs font-bold text-center mt-2 flex items-center justify-center gap-1">
-                    <i class="ph-fill ph-warning-circle"></i> Credenciales incorrectas.
-                </p>
-
-                <button type="submit" class="w-full bg-premium-purple hover:bg-premium-purpleDark text-white font-bold text-lg py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all mt-6 flex justify-center items-center gap-2">
-                    Iniciar Sesión
-                </button>
-            </form>
+  <div id="login-screen" class="w-full min-h-screen flex items-center justify-center relative z-[9999] px-6 bg-gradient-to-br from-[#4C1D95] via-[#6D28D9] to-[#9333EA] selection:bg-premium-purpleLight selection:text-premium-purpleDark font-sans">
+    <div class="bg-white p-10 rounded-[2rem] shadow-lux max-w-md w-full text-center fade-in">
+      <img src="https://res.cloudinary.com/duubcmn0b/image/upload/v1779323207/ia-psicologos-logos.png_qtcoal.png" alt="Logo PsicoStories" class="w-20 h-20 mx-auto rounded-full shadow-md mb-6 border border-gray-100">
+      <h2 class="font-serif text-3xl text-premium-dark font-bold mb-1">Acceso Privado</h2>
+      <p class="text-premium-gray text-sm mb-8 font-medium">Sistema Visual Clínico</p>
+      
+      <form id="login-form" class="space-y-5 text-left">
+        <div>
+          <label class="block mb-1.5 text-sm font-bold text-premium-dark">Correo Electrónico</label>
+          <input type="email" id="login-email" class="input-lux py-3 px-4" placeholder="tu@correo.com" required>
         </div>
+        <div>
+          <label class="block mb-1.5 text-sm font-bold text-premium-dark">Contraseña</label>
+          <input type="password" id="login-password" class="input-lux py-3 px-4" placeholder="••••••••" required>
+        </div>
+        <p id="login-error" class="hidden text-red-500 text-xs font-bold text-center mt-2 flex items-center justify-center gap-1">
+          <i class="ph-fill ph-warning-circle"></i> Credenciales incorrectas.
+        </p>
+        <button type="submit" class="w-full bg-premium-purple hover:bg-premium-purpleDark text-white font-bold text-lg py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all mt-6 flex justify-center items-center gap-2">
+          Iniciar Sesión
+        </button>
+      </form>
     </div>
+  </div>
 
-    <div id="app-content" style="display: none;" class="w-full min-h-screen flex flex-col relative overflow-hidden bg-gray-50">
+  <div id="app-content" style="display: none;">
+    <div id="home" class="screen active">
+      <div class="home-stars">
+        <div class="star-icon" style="top:20%; left:15%; font-size:24px;">✦</div>
+        <div class="star-icon" style="top:15%; left:65%; font-size:16px; animation-delay:1s;">✦</div>
+        <div class="star-icon" style="top:45%; right:15%; font-size:20px; animation-delay:0.5s;">✦</div>
+        <div class="star-icon" style="bottom:20%; left:30%; font-size:12px; animation-delay:1.5s;">✦</div>
+      </div>
+      <div class="home-curve"></div>
+      
+      <div class="home-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+      </div>
+
+      <nav class="home-nav">
+        <div class="home-logo">
+          <div class="home-logo-img-wrap">
+            <img class="home-logo-img" src="https://i.ibb.co/zhr4vQB2/Chat-GPT-Image-18-may-2026-08-53-18-p-m.png" alt="Logo" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"/>
+            <div style="display:none;width:100%;height:100%;border-radius:50%;background:var(--c2);place-items:center;font-size:20px;color:var(--c1)">Ψ</div>
+          </div>
+          <div>
+            <div class="home-logo-text">Sistema Visual Clínico</div>
+            <div class="home-logo-sub">PARA PSICÓLOGOS</div>
+          </div>
+        </div>
+        <div class="home-creator">
+          <span style="opacity:0.8; font-size:14px">👤</span> Creado por <span class="brand">Brygith Asenjo</span> <span style="opacity:0.5; margin:0 6px">|</span> IG: @brygith.asenjo
+        </div>
+      </nav>
+
+      <div class="home-hero">
+        <div class="home-hero-text">
+          <div class="home-pill">
+            <span>★</span> HERRAMIENTA PREMIUM PARA PSICÓLOGOS
+          </div>
+          <h1 class="home-h1">Tu consulta,<br>con una identidad<br><em>visualmente impecable.</em></h1>
+          <p class="home-sub">Sistema para generar informes de consulta y de bienvenida a tus pacientes de forma profesional y <strong>en menos de 5 minutos.</strong></p>
+        </div>
+        <div class="home-hero-img">
+          <img src="https://res.cloudinary.com/duubcmn0b/image/upload/v1779485326/e_fghxzf.png" alt="Corazón Neon" class="neon-heart">
+        </div>
+      </div>
+
+      <div class="home-cards">
+        <div class="home-card" onclick="goTo('informe')">
+          <div class="card-top">
+            <div class="card-icon ci-1">📋</div>
+            <div class="card-dots">•••</div>
+          </div>
+          <h3>Informe de<br>Consulta Inicial</h3>
+          <p>Genera informes A4 visuales, organizados y listos para imprimir o guardar como PDF.</p>
+          <button class="card-btn">
+            <span class="btn-icon"><span style="font-size:16px;">📄</span> Crear Informe</span>
+            <span>→</span>
+          </button>
+        </div>
         
-        <header class="w-full max-w-[1200px] mx-auto px-6 py-6 flex justify-between items-center z-20 bg-white shadow-sm mb-8 rounded-b-3xl">
-            <div class="flex items-center gap-3 cursor-pointer group">
-                <img src="https://res.cloudinary.com/duubcmn0b/image/upload/v1779323207/ia-psicologos-logos.png_qtcoal.png" alt="Logo" class="h-12 w-12 object-cover rounded-full shadow-sm group-hover:scale-105 transition-transform border border-gray-100">
-                <div class="flex flex-col">
-                    <h1 class="font-serif font-bold text-[22px] tracking-tight text-premium-purpleDark leading-none">Sistema Clínico</h1>
-                    <p class="text-[10px] text-premium-gray font-bold tracking-widest uppercase mt-1">Plataforma Privada</p>
-                </div>
-            </div>
-            <button id="btn-logout" class="text-premium-gray hover:text-premium-purpleDark flex items-center gap-2 text-sm font-medium transition-colors py-2 px-5 bg-gray-50 rounded-full border border-gray-200">
-                <i class="ph ph-sign-out text-lg"></i> Salir
-            </button>
-        </header>
+        <div class="home-card" onclick="goTo('bienvenida')">
+          <div class="card-top">
+            <div class="card-icon ci-2">🌸</div>
+            <div class="card-dots">•••</div>
+          </div>
+          <h3>Bienvenida<br>Visual</h3>
+          <p>Crea una bienvenida profesional para enviar a tus pacientes antes de la primera consulta.</p>
+          <button class="card-btn">
+            <span class="btn-icon"><span style="font-size:16px;">✉️</span> Crear Bienvenida</span>
+            <span>→</span>
+          </button>
+        </div>
 
-        <main class="flex-grow flex flex-col items-center px-6 w-full max-w-[1200px] mx-auto relative z-10 pb-16">
-            
-            <div class="text-center max-w-3xl mx-auto mb-16 fade-in mt-4">
-                <h2 class="font-serif text-[2.5rem] md:text-[3.5rem] text-premium-dark font-extrabold leading-tight mb-4">
-                    Bienvenido a tu <span class="text-premium-purple">Espacio Visual</span>
-                </h2>
-                <p class="text-premium-gray md:text-lg font-medium">
-                    Accede a tus recursos estratégicos y herramientas para la consulta diaria.
-                </p>
-            </div>
+        <div class="home-card" onclick="goTo('brand')">
+          <div class="card-top">
+            <div class="card-icon ci-3">🎨</div>
+            <div class="card-dots">•••</div>
+          </div>
+          <h3>Configuración<br>de Marca</h3>
+          <p>Guarda tu logo, colores, firma, sello y datos profesionales de forma centralizada.</p>
+          <button class="card-btn">
+            <span class="btn-icon"><span style="font-size:16px;">⚙️</span> Configurar Marca</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full fade-in">
-                
-                <div class="bg-white border border-gray-100 p-8 rounded-[1.5rem] hover:border-premium-purple/30 transition-all group cursor-pointer shadow-sm hover:shadow-lux">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 rounded-2xl bg-premium-purpleLight flex items-center justify-center text-premium-purple transition-transform group-hover:scale-110">
-                            <i class="ph-fill ph-folder-user text-[28px]"></i>
-                        </div>
-                    </div>
-                    <h3 class="font-serif text-[1.35rem] font-bold text-premium-dark mb-2">Expedientes</h3>
-                    <p class="text-premium-gray text-[0.95rem] leading-relaxed">Gestión de pacientes e historias clínicas.</p>
-                </div>
-
-                <div class="bg-white border border-gray-100 p-8 rounded-[1.5rem] hover:border-premium-purple/30 transition-all group cursor-pointer shadow-sm hover:shadow-lux">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 rounded-2xl bg-premium-purpleLight flex items-center justify-center text-premium-purple transition-transform group-hover:scale-110">
-                            <i class="ph-fill ph-calendar-check text-[28px]"></i>
-                        </div>
-                    </div>
-                    <h3 class="font-serif text-[1.35rem] font-bold text-premium-dark mb-2">Agenda</h3>
-                    <p class="text-premium-gray text-[0.95rem] leading-relaxed">Organización de citas y disponibilidad.</p>
-                </div>
-
-                <div class="bg-white border border-gray-100 p-8 rounded-[1.5rem] hover:border-premium-purple/30 transition-all group cursor-pointer shadow-sm hover:shadow-lux">
-                    <div class="flex justify-between items-start mb-6">
-                        <div class="w-14 h-14 rounded-2xl bg-premium-purpleLight flex items-center justify-center text-premium-purple transition-transform group-hover:scale-110">
-                            <i class="ph-fill ph-image text-[28px]"></i>
-                        </div>
-                    </div>
-                    <h3 class="font-serif text-[1.35rem] font-bold text-premium-dark mb-2">Recursos Visuales</h3>
-                    <p class="text-premium-gray text-[0.95rem] leading-relaxed">Material de apoyo para tus sesiones.</p>
-                </div>
-
-            </div>
-        </main>
+      <div class="home-bottom-bar">
+        <div class="ethics-bar">
+          <div class="ethics-item"><span class="ethics-icon">🛡️</span> Ético</div>
+          <div class="ethics-divider"></div>
+          <div class="ethics-item"><span class="ethics-icon">➕</span> Basado en evidencia</div>
+          <div class="ethics-divider"></div>
+          <div class="ethics-item"><span class="ethics-icon">👥</span> Creado para psicólogos</div>
+        </div>
+      </div>
     </div>
 
-    <script type="module" src="/src/main.js"></script>
+    <div id="brand" class="screen">
+      <div class="topbar">
+        <div class="topbar-left">
+          <span class="topbar-logo">🎨</span>
+          <div><div class="topbar-title">Configuración de Marca</div><div class="topbar-sub">Personaliza tu identidad profesional</div></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="btn btn-secondary btn-sm" onclick="exportBrand()">⬇ Exportar JSON</button>
+          <label class="btn btn-ghost btn-sm" style="cursor:pointer">⬆ Importar JSON<input type="file" accept=".json" onchange="importBrand(event)" style="display:none"></label>
+          <button class="btn btn-danger btn-sm" onclick="clearBrand()">🗑 Borrar todo</button>
+          <button class="btn-back" onclick="goTo('home')">← Volver al inicio</button>
+        </div>
+      </div>
+
+      <div class="brand-grid">
+        <div>
+          <div class="section-card">
+            <div class="section-header"><div class="section-num">1</div><div><div class="section-title">Datos profesionales</div></div></div>
+            <div class="grid-2">
+              <div class="form-group"><label>Nombre profesional</label><input type="text" id="b_nombre" placeholder="Lic. Tu Nombre" oninput="saveBrand();updatePreviews()"></div>
+              <div class="form-group"><label>Especialidad</label><input type="text" id="b_especialidad" placeholder="Psicóloga Clínica" oninput="saveBrand();updatePreviews()"></div>
+              <div class="form-group"><label>Frase profesional</label><input type="text" id="b_frase" placeholder="Psicología que transforma" oninput="saveBrand();updatePreviews()"></div>
+              <div class="form-group"><label>Teléfono</label><input type="tel" id="b_tel" placeholder="+51 999 999 999" oninput="saveBrand();updatePreviews()"></div>
+              <div class="form-group"><label>Correo</label><input type="email" id="b_email" placeholder="hola@tupractica.com" oninput="saveBrand();updatePreviews()"></div>
+              <div class="form-group"><label>Instagram / Web</label><input type="text" id="b_ig" placeholder="@tu.usuario" oninput="saveBrand();updatePreviews()"></div>
+            </div>
+            <div class="form-group">
+              <div class="check-row"><input type="checkbox" id="b_colegiatura_show" onchange="saveBrand()"> <label style="margin:0;cursor:pointer">Mostrar número de colegiatura</label></div>
+              <input type="text" id="b_colegiatura" placeholder="Ej: C.Ps.P. 12345" style="margin-top:8px" oninput="saveBrand()">
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header"><div class="section-num">2</div><div><div class="section-title">Logo del psicólogo</div></div></div>
+            <div class="upload-zone" onclick="document.getElementById('logoInput').click()">
+              <div id="logoPreviewSmall" style="font-size:36px;color:var(--c1)">🖼</div>
+              <p>Haz clic para subir tu logo</p>
+              <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="handleLogo(event)">
+            </div>
+            <div style="margin-top:14px" class="grid-2">
+              <div class="form-group"><label>Modo de logo</label>
+                <select id="b_logo_modo" onchange="saveBrand();updatePreviews()">
+                  <option value="normal">Normal</option>
+                  <option value="circulo">Dentro de círculo</option>
+                  <option value="marca">Marca de agua</option>
+                  <option value="oculto">Oculto</option>
+                  <option value="icono">Ícono neutro Ψ</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Tamaño (%)</label><input type="range" id="b_logo_size" min="40" max="200" value="100" oninput="saveBrand();updatePreviews()"></div>
+            </div>
+            <div class="form-group"><label>Opacidad (%)</label><input type="range" id="b_logo_op" min="20" max="100" value="100" oninput="saveBrand();updatePreviews()"></div>
+            <div class="check-row" style="margin-top:8px"><input type="checkbox" id="b_logo_fondo_blanco" onchange="saveBrand()"> <label style="margin:0;cursor:pointer">Mi logo tiene fondo blanco (activa contenedor limpio)</label></div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header"><div class="section-num">3</div><div><div class="section-title">Firma y sello</div></div></div>
+            <div class="grid-2">
+              <div>
+                <label>Firma digital</label>
+                <div class="upload-zone" onclick="document.getElementById('firmaInput').click()" style="padding:14px">
+                  <div id="firmaPreview" style="font-size:22px;color:var(--muted)">✍</div>
+                  <p style="font-size:11px">Subir firma</p>
+                  <input type="file" id="firmaInput" accept="image/*" style="display:none" onchange="handleFirma(event)">
+                </div>
+              </div>
+              <div>
+                <label>Sello profesional</label>
+                <div class="upload-zone" onclick="document.getElementById('selloInput').click()" style="padding:14px">
+                  <div id="selloPreview" style="font-size:22px;color:var(--muted)">🔵</div>
+                  <p style="font-size:11px">Subir sello</p>
+                  <input type="file" id="selloInput" accept="image/*" style="display:none" onchange="handleSello(event)">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header"><div class="section-num">4</div><div><div class="section-title">Paleta de colores</div></div></div>
+            <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Elige una paleta prediseñada o personaliza tus colores.</p>
+            <div class="palette-grid" id="paletteGrid"></div>
+            <div style="margin-top:18px">
+              <div class="grid-2" style="gap:10px">
+                <div class="form-group"><label>Color principal</label><div style="display:flex;gap:8px;align-items:center"><input type="color" id="col_c1" oninput="applyCustomColors()"><span id="col_c1_hex" style="font-size:12px;font-weight:700">#b06a8c</span></div></div>
+                <div class="form-group"><label>Color suave</label><div style="display:flex;gap:8px;align-items:center"><input type="color" id="col_c2" oninput="applyCustomColors()"><span id="col_c2_hex" style="font-size:12px;font-weight:700">#f5e0ea</span></div></div>
+                <div class="form-group"><label>Color acento</label><div style="display:flex;gap:8px;align-items:center"><input type="color" id="col_c3" oninput="applyCustomColors()"><span id="col_c3_hex" style="font-size:12px;font-weight:700">#7a3f5c</span></div></div>
+                <div class="form-group"><label>Color fondo</label><div style="display:flex;gap:8px;align-items:center"><input type="color" id="col_c4" oninput="applyCustomColors()"><span id="col_c4_hex" style="font-size:12px;font-weight:700">#fff8f5</span></div></div>
+              </div>
+            </div>
+            <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(0,0,0,.08)">
+              <label>Guardar paleta personalizada</label>
+              <div class="flex-row">
+                <input type="text" id="paletteSaveName" placeholder="Nombre de mi paleta" style="flex:1">
+                <button class="btn btn-primary btn-sm" onclick="saveNamedPalette()">Guardar</button>
+              </div>
+            </div>
+            <div id="savedPalettesList" style="margin-top:14px"></div>
+            <div class="info-box" style="margin-top:14px">
+              <strong>⚠ Sobre el guardado</strong>
+              Tu configuración se guarda en este navegador. Si cambias de dispositivo o borras caché, puedes perderla. Descarga tu archivo de marca para conservarla.
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header"><div class="section-num">5</div><div><div class="section-title">Plantilla visual</div></div></div>
+            <div class="tag-template-grid" id="templateGrid"></div>
+          </div>
+        </div>
+
+        <div class="brand-preview">
+          <div class="preview-card">
+            <div class="preview-title">Vista previa de marca</div>
+            <div class="preview-logo-zone" id="prevLogoZone">
+              <div style="font-size:30px;color:var(--c1)">Ψ</div>
+            </div>
+            <div class="preview-colors">
+              <div class="color-dot" id="pd1" style="background:var(--c1)"></div>
+              <div class="color-dot" id="pd2" style="background:var(--c2)"></div>
+              <div class="color-dot" id="pd3" style="background:var(--c3)"></div>
+              <div class="color-dot" id="pd4" style="background:var(--c4);border:1px solid rgba(0,0,0,.1)"></div>
+            </div>
+            <div id="prevName" style="font-size:16px;font-weight:800;margin-bottom:4px">Tu nombre</div>
+            <div id="prevEsp" style="font-size:12px;color:var(--muted);margin-bottom:14px">Especialidad</div>
+            <div class="preview-footer">
+              <div id="prevFooter">Datos de contacto</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="informe" class="screen">
+      <div class="topbar">
+        <div class="topbar-left">
+          <span class="topbar-logo">📋</span>
+          <div><div class="topbar-title">Informe de Consulta Inicial</div><div class="topbar-sub">Genera informe A4 profesional</div></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn-secondary btn-sm" onclick="loadEjemplo(1)">Ej: Ansiedad</button>
+          <button class="btn btn-secondary btn-sm" onclick="loadEjemplo(2)">Ej: Pareja</button>
+          <button class="btn btn-secondary btn-sm" onclick="loadEjemplo(3)">Ej: Autoestima</button>
+          <button class="btn btn-ghost btn-sm" onclick="guardarBorrador()">💾 Guardar borrador</button>
+          <button class="btn btn-ghost btn-sm" onclick="cargarBorrador()">📂 Cargar borrador</button>
+          <button class="btn btn-ghost btn-sm" onclick="limpiarInforme()">🗑 Limpiar</button>
+          <button class="btn btn-primary btn-sm" onclick="printInforme()">🖨 Imprimir / PDF</button>
+          <button class="btn-back" onclick="goTo('home')">← Volver</button>
+        </div>
+      </div>
+
+      <div class="informe-layout">
+        <div class="informe-panel">
+          <div class="informe-panel-inner">
+            <div class="panel-section">
+              <div class="panel-section-title">Plantilla visual</div>
+              <select id="inf_template" onchange="updateInforme()">
+                <option value="theme-soft-rose">1. Soft Clínico Rosé</option>
+                <option value="theme-editorial">2. Editorial Premium</option>
+                <option value="theme-executive">3. Executive Dorado</option>
+                <option value="theme-neuro">4. Neuro Tech</option>
+                <option value="theme-infanto">5. Infantojuvenil Neutro</option>
+                <option value="theme-terrap">6. Terapéutico Cálido</option>
+                <option value="theme-inst">7. Institucional Moderno</option>
+                <option value="theme-green">8. Soft Green</option>
+                <option value="theme-luxury">9. Luxury Minimal</option>
+                <option value="theme-creative">10. Psicología Creativa</option>
+              </select>
+              <div class="check-row" style="margin-top:10px"><input type="checkbox" id="inf_wm" onchange="updateInforme()"> <label style="margin:0;cursor:pointer;font-size:12px">Mostrar marca de agua Ψ</label></div>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">1 · Datos de filiación</div>
+              <div class="form-group">
+                <label>Número de historia clínica</label>
+                <input type="text" id="fi_hc" placeholder="Ej: HC-2026-001" oninput="updateInforme()">
+              </div>
+              <div class="form-group"><label>Nombre y apellido</label><input type="text" id="fi_nombre" oninput="updateInforme()"></div>
+              <div class="form-group"><label>Sexo</label>
+                <select id="fi_sexo" onchange="updateInforme()"><option>Femenino</option><option>Masculino</option><option>No binario</option><option>Prefiere no especificar</option></select>
+              </div>
+              <div class="form-group"><label>Edad</label><input type="number" id="fi_edad" min="0" max="120" oninput="updateInforme()"></div>
+              <div class="form-group"><label>Fecha de nacimiento</label><input type="date" id="fi_fn" oninput="updateInforme()"></div>
+              <div class="form-group"><label>Lugar de nacimiento</label><input type="text" id="fi_lugar" oninput="updateInforme()"></div>
+              <div class="form-group"><label>Estado civil</label>
+                <select id="fi_ecivil" onchange="updateInforme()"><option>Soltero/a</option><option>Casado/a</option><option>Conviviente</option><option>Divorciado/a</option><option>Viudo/a</option><option>Separado/a</option></select>
+              </div>
+              <div class="form-group"><label>Grado de instrucción</label>
+                <select id="fi_grado" onchange="updateInforme()"><option>Primaria</option><option>Secundaria</option><option>Técnica</option><option>Superior universitaria</option><option>Posgrado</option></select>
+              </div>
+              <div class="form-group"><label>Ocupación</label><input type="text" id="fi_ocup" oninput="updateInforme()"></div>
+              <div class="form-group"><label>Domicilio</label><input type="text" id="fi_dom" oninput="updateInforme()"></div>
+              <div class="form-group"><label>Fecha de consulta</label><input type="date" id="fi_fecha" value="" oninput="updateInforme()"></div>
+              <div class="form-group"><label>Especialista</label><input type="text" id="fi_esp" placeholder="Lic. Tu Nombre" oninput="updateInforme()"></div>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">2 · Motivo de consulta</div>
+              <div class="form-group">
+                <label>Descripción</label>
+                <textarea id="inf_motivo" rows="4" oninput="updateInforme()" placeholder="Escribe el motivo de consulta..."></textarea>
+              </div>
+              <p style="font-size:11px;color:var(--muted);margin-bottom:8px">Insertar ejemplo:</p>
+              <button class="example-btn" onclick="insertarEj('inf_motivo','Refiere dificultades para concentrarse y mantener la atención en sus actividades diarias.')">Dificultades de concentración</button>
+              <button class="example-btn" onclick="insertarEj('inf_motivo','Acude a consulta por dificultades para establecer límites en su relación de pareja. Refiere sentirse confundida y emocionalmente agotada.')">Límites en pareja</button>
+              <button class="example-btn" onclick="insertarEj('inf_motivo','Menciona sentirse ansioso/a, con preocupación constante y dificultad para relajarse.')">Ansiedad y preocupación</button>
+              <button class="example-btn" onclick="insertarEj('inf_motivo','Refiere inseguridad, baja autoestima y temor constante a equivocarse.')">Inseguridad y autoestima</button>
+              <button class="example-btn" onclick="insertarEj('inf_motivo','Solicita apoyo psicológico debido a cambios emocionales recientes y dificultad para gestionar el estrés.')">Cambios emocionales</button>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">3 · Observación conductual y general</div>
+              <textarea id="inf_obs" rows="3" oninput="updateInforme()" placeholder="Observaciones generales adicionales..."></textarea>
+              <div id="obs_chips" style="margin-top:12px"></div>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">4 · Instrumentos / técnicas aplicadas</div>
+              <div class="instr-search"><input type="text" id="instr_search" placeholder="Buscar instrumento..." oninput="filterInstrumentos()"></div>
+              <div class="instr-list" id="instr_list"></div>
+              <div class="form-group" style="margin-top:12px">
+                <label>Agregar instrumento personalizado</label>
+                <div class="flex-row">
+                  <input type="text" id="instr_custom" placeholder="Nombre del instrumento">
+                  <button class="btn btn-secondary btn-sm" onclick="addCustomInstrumento()">+ Agregar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">5 · Antecedentes relevantes</div>
+              <p style="font-size:11px;color:var(--muted);margin-bottom:10px">Solo las categorías con contenido aparecerán en el informe.</p>
+              <div id="antecedentes_list"></div>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">6 · Análisis clínico inicial</div>
+              <textarea id="inf_analisis" rows="4" oninput="updateInforme()" placeholder="Análisis clínico..."></textarea>
+              <button class="example-btn" onclick="insertarEj('inf_analisis','La información recogida sugiere presencia de dificultades relacionadas con la regulación emocional y el establecimiento de límites.')">Dificultades relacionadas con...</button>
+              <button class="example-btn" onclick="insertarEj('inf_analisis','Durante la consulta se evidencian indicadores compatibles con sintomatología ansiosa de nivel moderado.')">Indicadores compatibles con...</button>
+              <button class="example-btn" onclick="insertarEj('inf_analisis','Se identifican patrones emocionales asociados a creencias limitantes sobre el propio valor y la autoeficacia.')">Patrones emocionales asociados a...</button>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">7 · Impresión diagnóstica inicial</div>
+              <div class="info-box">Impresión diagnóstica sujeta a evaluación continua.</div>
+              <textarea id="inf_diag" rows="3" oninput="updateInforme()" placeholder="Impresión diagnóstica (opcional)..."></textarea>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">8 · Conclusiones</div>
+              <div id="conclusiones_list"></div>
+              <button class="btn btn-secondary btn-sm" onclick="addBullet('conclusiones_list','inf_concl_','updateInforme')">+ Agregar conclusión</button>
+              <div style="margin-top:10px">
+                <button class="example-btn" onclick="addBulletWithText('conclusiones_list','inf_concl_','Se identifican dificultades para expresar necesidades y establecer límites personales.')">Dificultades en límites</button>
+                <button class="example-btn" onclick="addBulletWithText('conclusiones_list','inf_concl_','Se evidencian indicadores de ansiedad moderada que interfieren en el funcionamiento diario.')">Ansiedad moderada</button>
+              </div>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">9 · Recomendaciones</div>
+              <div id="recomendaciones_list"></div>
+              <button class="btn btn-secondary btn-sm" onclick="addBullet('recomendaciones_list','inf_rec_','updateInforme')">+ Agregar recomendación</button>
+              <div style="margin-top:10px">
+                <button class="example-btn" onclick="addBulletWithText('recomendaciones_list','inf_rec_','Iniciar proceso psicoterapéutico.')">Iniciar psicoterapia</button>
+                <button class="example-btn" onclick="addBulletWithText('recomendaciones_list','inf_rec_','Trabajar regulación emocional y habilidades de afrontamiento.')">Regulación emocional</button>
+                <button class="example-btn" onclick="addBulletWithText('recomendaciones_list','inf_rec_','Fortalecer habilidades de comunicación asertiva.')">Comunicación asertiva</button>
+                <button class="example-btn" onclick="addBulletWithText('recomendaciones_list','inf_rec_','Mantener hábitos de sueño y autocuidado.')">Hábitos de autocuidado</button>
+                <button class="example-btn" onclick="addBulletWithText('recomendaciones_list','inf_rec_','Realizar seguimiento psicológico periódico.')">Seguimiento periódico</button>
+                <button class="example-btn" onclick="addBulletWithText('recomendaciones_list','inf_rec_','Derivar a evaluación psiquiátrica si corresponde.')">Derivación psiquiátrica</button>
+              </div>
+            </div>
+
+            <div class="panel-section">
+              <div class="panel-section-title">10 · Plan terapéutico inicial</div>
+              <div id="plan_cards"></div>
+            </div>
+          </div>
+        </div>
+        <div class="informe-preview" id="informePreview"></div>
+      </div>
+    </div>
+
+    <div id="bienvenida" class="screen">
+      <div class="topbar">
+        <div class="topbar-left">
+          <span class="topbar-logo">🌸</span>
+          <div><div class="topbar-title">Bienvenida Visual</div><div class="topbar-sub">Crea una bienvenida profesional para tus pacientes</div></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="btn btn-primary btn-sm" onclick="downloadBVImage()">⬇ Descargar PNG</button>
+          <button class="btn btn-ghost btn-sm" onclick="printBienvenida()">🖨 Imprimir / PDF</button>
+          <button class="btn-back" onclick="goTo('home')">← Volver</button>
+        </div>
+      </div>
+
+      <div class="bv-layout">
+        <div class="bv-panel">
+          <div class="panel-section">
+            <div class="panel-section-title">Formato</div>
+            <div class="format-btns">
+              <button class="format-btn active" onclick="setBVFormat('sq',this)">Cuadrado 1:1</button>
+              <button class="format-btn" onclick="setBVFormat('story',this)">Story</button>
+              <button class="format-btn" onclick="setBVFormat('a5',this)">A5</button>
+            </div>
+          </div>
+          <div class="panel-section">
+            <div class="panel-section-title">Título y mensaje</div>
+            <div class="form-group"><label>Título</label><input type="text" id="bv_titulo" value="¡Bienvenido/a!" oninput="updateBV()"></div>
+            <div class="form-group"><label>Mensaje corto</label><textarea id="bv_msg" rows="2" oninput="updateBV()">Este es un espacio seguro diseñado para escucharte y acompañarte en tu proceso.</textarea></div>
+          </div>
+          <div class="panel-section">
+            <div class="panel-section-title">Frase final (banco)</div>
+            <div id="bv_frases_bank"></div>
+            <div class="form-group" style="margin-top:10px"><label>Frase personalizada</label><input type="text" id="bv_frase_custom" oninput="updateBV()" placeholder="Escribe tu frase..."></div>
+          </div>
+          <div class="panel-section">
+            <div class="panel-section-title">Recomendaciones (elige hasta 5)</div>
+            <div id="bv_recs_bank"></div>
+          </div>
+          <div class="panel-section">
+            <div class="panel-section-title">Materiales sugeridos</div>
+            <div id="bv_mats_bank"></div>
+          </div>
+          <div class="panel-section">
+            <div class="panel-section-title">Datos de contacto</div>
+            <div class="form-group"><label>Texto de contacto</label><input type="text" id="bv_contacto" placeholder="📞 999 999 · @usuario" oninput="updateBV()"></div>
+          </div>
+          <div id="bv_alert" style="display:none" class="info-box" style="background:rgba(239,68,68,.1);border-color:#ef4444;color:#ef4444">
+            ⚠ Hay demasiada información para este formato. Reduce algunos puntos seleccionados.
+          </div>
+        </div>
+        <div class="bv-preview-area">
+          <div id="bvCanvas" class="bv-canvas sq">
+            <div class="bv-content" id="bvContent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>
