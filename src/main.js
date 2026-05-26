@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (user) {
             // Usuario autenticado: Mostrar app, ocultar login
             loginScreen.style.display = 'none';
-            appContent.style.display = 'flex'; // o 'block' dependiendo de tu app
+            appContent.style.display = 'block'; // o 'block' dependiendo de tu app
             
             // Refrescar íconos o vistas si es necesario (ej. lucide.createIcons() o updateInforme())
             if (typeof lucide !== 'undefined') lucide.createIcons();
