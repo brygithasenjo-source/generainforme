@@ -399,3 +399,16 @@ input[type=range] { width: 100%; accent-color: var(--c1); }
 .format-btn.active { border-color: var(--c1); color: var(--c1); background: var(--c2); }
 .collapsible { overflow: hidden; max-height: 0; transition: max-height .3s ease; }
 .collapsible.open { max-height: 9999px; }
+/* Ajuste dinámico de impresión para evitar huecos en blanco */
+@media print {
+  .a4-section {
+    page-break-inside: auto !important;
+    break-inside: auto !important;
+  }
+  
+  /* Protegemos las tarjetas internas pequeñas para que NO se corten por la mitad */
+  .a4-card {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
