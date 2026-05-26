@@ -1188,32 +1188,79 @@ function autoPaginateInforme(container, tmpl, c1, c2, c3, c4, footerHtml) {
   const content = firstSheet.querySelector('#page1Content');
   if (!firstSheet || !content) return;
 
-  const footer = firstSheet.querySelector('.a4-footer');
-  const maxBottom = firstSheet.clientHeight - 170;
-
   const sections = Array.from(content.querySelectorAll('.a4-section'));
-  let overflowIndex = -1;
-  sections.forEach((section, index) => {
-    const bottom = section.offsetTop + section.offsetHeight;
-    if (overflowIndex === -1 && bottom > maxBottom) { overflowIndex = index; }
-  });
-
-  if (overflowIndex === -1) return;
-
-  const moving = sections.slice(overflowIndex);
-  const secondContent = moving.map(section => section.outerHTML).join('');
-
-  moving.forEach(section => section.remove());
+  
+  // Remover footer temporalmente para calcular espacios
+  const footer = firstSheet.querySelector('.a4-footer');
   if (footer) footer.remove();
 
-  const secondSheet = document.createElement('div');
-  secondSheet.className = `a4-sheet ${tmpl} a4-continuation`;
-  secondSheet.setAttribute('style', `--c1:${c1};--c2:${c2};--c3:${c3};--c4:${c4}`);
-  secondSheet.innerHTML = `
-    ${secondContent}
-    ${footerHtml}
-  `;
-  container.appendChild(secondSheet);
+  // Altura segura de contenido por hoja (aprox 820px para tamaño A4)
+  const safeHeight = 820;
+  let currentHeight = 0;
+  let overflowStartIndex = -1;
+
+  // Evaluar qué entra en la primera hoja
+  sections.forEach((section, index) => {
+    const h = section.offsetHeight + 18; // altura real de la sección + margen
+    if (overflowStartIndex === -1 && (currentHeight + h > safeHeight) && currentHeight > 0) {
+      overflowStartIndex = index;
+    } else {
+      currentHeight += h;
+    }
+  });
+
+  // Si todo entra en la hoja 1, regresamos el footer y terminamos
+  if (overflowStartIndex === -1) {
+    firstSheet.insertAdjacentHTML('beforeend', footerHtml);
+    return;
+  }
+
+  // Separar las secciones que no entran
+  let remainingSections = sections.slice(overflowStartIndex);
+  remainingSections.forEach(sec => sec.remove());
+
+  let currentSheet = firstSheet;
+
+  // Crear hojas 2, 3, 4... automáticamente mientras haya contenido
+  while (remainingSections.length > 0) {
+    const newSheet = document.createElement('div');
+    newSheet.className = `a4-sheet ${tmpl} a4-continuation`;
+    newSheet.setAttribute('style', `--c1:${c1};--c2:${c2};--c3:${c3};--c4:${c4}`);
+    
+    // Copiamos la decoración de fondo y marca de agua (para que todas las hojas mantengan el diseño)
+    const decor = firstSheet.querySelector('.a4-decor')?.outerHTML || '';
+    const wm = firstSheet.querySelector('.a4-wm')?.outerHTML || '';
+    
+    const newContent = document.createElement('div');
+    newContent.className = 'page-content';
+    newContent.style.paddingTop = '10px'; // Un poco de aire arriba
+    
+    newSheet.innerHTML = decor + wm;
+    newSheet.appendChild(newContent);
+    container.appendChild(newSheet);
+    currentSheet = newSheet;
+
+    let pageHeight = 0;
+    
+    // Llenar la hoja actual
+    while (remainingSections.length > 0) {
+      const sec = remainingSections[0];
+      newContent.appendChild(sec);
+      const secHeight = sec.offsetHeight + 18;
+      
+      if (pageHeight + secHeight > safeHeight && pageHeight > 0) {
+        // Si ya no entra en esta hoja, lo quitamos y el bucle creará una hoja nueva
+        sec.remove();
+        break;
+      }
+      
+      pageHeight += secHeight;
+      remainingSections.shift();
+    }
+  }
+
+  // Añadir la firma y pie de página SOLO a la última hoja creada
+  currentSheet.insertAdjacentHTML('beforeend', footerHtml);
 }
 
 // ===================================================
