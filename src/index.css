@@ -1,15 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700;900&family=Nunito:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap');
+/* ===== CLASES PARA LOGIN ====== */
+.fade-in { animation: fadeIn 0.6s ease-out forwards; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.input-lux {
+  width: 100%;
+  background-color: #ffffff;
+  border: 2px solid #E5E7EB;
+  color: #111827;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+}
+.input-lux:focus {
+  outline: none;
+  border-color: #6D28D9;
+  box-shadow: 0 0 0 4px rgba(109, 40, 217, 0.1);
+}
 
-/* === ESTILOS LOGIN === */
-.login-overlay { position: fixed; inset: 0; background: #0b0213; display: flex; align-items: center; justify-content: center; z-index: 9999; }
-.login-card { background: #fff; padding: 40px; border-radius: 24px; width: 100%; max-width: 360px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; }
-.login-icon { width: 60px; height: 60px; background: #fdf2f9; color: #c93b9e; font-size: 32px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 16px; }
-.login-card h2 { margin-bottom: 4px; font-weight: 800; color: #1c1c2e; }
-.login-card p { color: #6b7280; font-size: 13px; margin-bottom: 24px; }
 
-/* === VARIABLES ORIGINALES === */
+/* ===== VARIABLES Y ESTILOS DE LA APP ORIGINAL ====== */
 :root {
-  --c1: #c93b9e; --c2: #fdf2f9; --c3: #621e82; --c4: #ffffff;
+  --c1: #c93b9e;
+  --c2: #fdf2f9;
+  --c3: #621e82;
+  --c4: #ffffff;
   --ink: #1c1c2e; --muted: #6b7280; --white: #ffffff;
   --radius: 22px; --shadow: 0 20px 60px rgba(28,28,46,.13);
   --font-head: 'Manrope', 'DM Sans', system-ui, sans-serif;
@@ -17,12 +32,11 @@
   --font-body: 'DM Sans', 'Aptos', system-ui, sans-serif;
   --font-serif: 'Playfair Display', serif;
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body { font-family: var(--font-body); background: var(--c4); color: var(--ink); min-height: 100vh; }
 
-/* PEGA AQUÍ TODO EL RESTO DE TU CSS ORIGINAL EXACTAMENTE COMO ESTABA */
-/* ... (El código desde .screen hasta .collapsible.open) ... */
 /* ======= SCREENS ======= */
 .screen { display: none; min-height: 100vh; }
 .screen.active { display: block; }
@@ -41,7 +55,6 @@ body { font-family: var(--font-body); background: var(--c4); color: var(--ink); 
 .blob-2 { width: 60vw; height: 60vw; background: #ff2a85; bottom: -30vw; right: -20vw; opacity: 0.25; }
 .blob-3 { width: 40vw; height: 40vw; background: #50148a; top: 30%; left: 30%; opacity: 0.3; }
 
-/* Destellos y líneas decorativas */
 .home-stars { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
 .star-icon { position: absolute; color: #fff; text-shadow: 0 0 10px #fff; animation: twinkle 3s infinite alternate; }
 @keyframes twinkle { 0% { opacity: 0.3; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.1); } }
@@ -75,7 +88,6 @@ body { font-family: var(--font-body); background: var(--c4); color: var(--ink); 
   filter: drop-shadow(0 0 30px rgba(255, 60, 160, 0.4)); 
 }
 
-/* Efecto de latido fuerte (Sístole/Diástole) */
 @keyframes strongHeartbeat {
   0% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255, 60, 160, 0.4)); }
   12% { transform: scale(1.12); filter: drop-shadow(0 0 50px rgba(255, 60, 160, 0.8)); }
@@ -100,7 +112,7 @@ body { font-family: var(--font-body); background: var(--c4); color: var(--ink); 
   background: linear-gradient(90deg, #ff7ba8 0%, #d864ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  padding-right: 5px; /* Para evitar cortes en cursiva */
+  padding-right: 5px;
 }
 .home-sub { font-size: 17px; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 580px; margin: 0 0 52px 0; font-weight: 400; }
 .home-sub strong { color: #ff7ba8; font-weight: 700; }
@@ -278,7 +290,7 @@ input[type=range] { width: 100%; accent-color: var(--c1); }
 .a4-sello { max-width: 55px; max-height: 55px; border-radius: 50%; opacity: .85; }
 .a4-diagnostic-note { font-size: 9.5px; color: var(--muted); font-style: italic; margin-top: 4px; }
 
-/* Themes (igual) */
+/* Themes */
 .theme-soft-rose .a4-decor::before { content:''; position:absolute; width:350px; height:350px; right:-100px; top:-80px; border-radius:46% 54% 42% 58%; background:linear-gradient(135deg,var(--c2),#ffe9dc); opacity:.9; }
 .theme-soft-rose .a4-decor::after { content:''; position:absolute; left:-60px; bottom:-50px; width:230px; height:230px; border-radius:60%; background:linear-gradient(135deg,var(--c2),rgba(255,255,255,.4)); opacity:.7; }
 .theme-editorial .a4-sheet { padding-left: 22mm; }
@@ -345,7 +357,7 @@ input[type=range] { width: 100%; accent-color: var(--c1); }
 .a4-continuation .a4-section:first-child { margin-top: 0; }
 @media print {
   body { background: white; }
-  #home, #brand, .topbar, .informe-panel, .bv-panel, .print-bar { display: none !important; }
+  #home, #brand, .topbar, .informe-panel, .bv-panel, .print-bar, #login-screen { display: none !important; }
   body.print-informe #informe { display: block !important; background: white !important; }
   body.print-informe #bienvenida { display: none !important; }
   body.print-bienvenida #bienvenida { display: block !important; background: white !important; }
@@ -387,49 +399,3 @@ input[type=range] { width: 100%; accent-color: var(--c1); }
 .format-btn.active { border-color: var(--c1); color: var(--c1); background: var(--c2); }
 .collapsible { overflow: hidden; max-height: 0; transition: max-height .3s ease; }
 .collapsible.open { max-height: 9999px; }
-
-
-/* ========================================================== */
-/* === SOLUCIÓN AL BUG DE IMPRESIÓN Y PDF (REEMPLAZA TU @media print CON ESTO) === */
-/* ========================================================== */
-@media print {
-  body { background: white !important; }
-  #home, #brand, .topbar, .informe-panel, .bv-panel, .print-bar { display: none !important; }
-  
-  body.print-informe #informe { display: block !important; background: white !important; }
-  body.print-bienvenida #bienvenida { display: block !important; background: white !important; }
-  body.print-informe #bienvenida, body.print-bienvenida #informe { display: none !important; }
-  
-  .informe-layout, .bv-layout { display: block !important; }
-  .informe-preview, .bv-preview-area { display: block !important; height: auto !important; overflow: visible !important; padding: 0 !important; background: white !important; }
-  
-  /* Permite que el navegador decida dónde cortar de forma natural */
-  .a4-sheet { 
-    box-shadow: none !important; 
-    margin: 0 !important; 
-    border-radius: 0 !important; 
-    height: auto !important; 
-    min-height: auto !important; 
-    padding: 15mm 15mm 20mm !important; /* Ajuste para márgenes reales */
-    page-break-after: auto; 
-    overflow: visible !important;
-  }
-  
-  /* El footer se coloca al final del flujo en lugar de flotar cortando el texto */
-  .a4-footer {
-    position: static !important;
-    margin-top: 40px !important;
-    page-break-inside: avoid;
-  }
-
-  /* Evitar que las secciones pequeñas se partan por la mitad */
-  .a4-section {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-  
-  .bv-canvas { box-shadow: none !important; margin: 0 auto !important; }
-  
-  /* Deja que el PDF maneje los márgenes por ti */
-  @page { size: A4; margin: 10mm; }
-}
