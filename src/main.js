@@ -1,28 +1,73 @@
 // ===================================================
 //  CONTROLADOR DE LOGIN (Lógica nueva)
 // ===================================================
+// ===================================================
+//  CONTROLADOR DE LOGIN CON FIREBASE
+// ===================================================
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "./firebase.js"; // Importamos tu configuración
+
 document.addEventListener('DOMContentLoaded', () => {
+    const loginScreen = document.getElementById('login-screen');
+    const appContent = document.getElementById('app-content');
     const loginForm = document.getElementById('login-form');
-    
+    const loginError = document.getElementById('login-error');
+
+    // 1. Escuchador de estado: Verifica si el usuario ya inició sesión antes
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // Usuario autenticado: Mostrar app, ocultar login
+            loginScreen.style.display = 'none';
+            appContent.style.display = 'flex'; // o 'block' dependiendo de tu app
+            
+            // Refrescar íconos o vistas si es necesario (ej. lucide.createIcons() o updateInforme())
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+            if (typeof updateInforme === 'function') setTimeout(updateInforme, 100);
+        } else {
+            // No hay usuario: Mostrar login, ocultar app
+            loginScreen.style.display = 'flex';
+            appContent.style.display = 'none';
+        }
+    });
+
+    // 2. Manejo del formulario de Login
     if(loginForm) {
-        loginForm.addEventListener('submit', function(event) {
+        loginForm.addEventListener('submit', async function(event) {
             event.preventDefault(); // Evitar recarga
             
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
-        
-            // Lógica de inicio de sesión (ajusta las credenciales si lo necesitas)
-            if (email.includes("@") && password.length >= 6) { 
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('app-content').style.display = 'block';
-                // Refrescar vistas base de la app al ingresar
-                setTimeout(updateInforme, 100);
-            } else {
-                document.getElementById('login-error').style.display = 'flex';
+            
+            // Ocultar error previo y cambiar texto del botón a "Cargando..." si lo deseas
+            loginError.style.display = 'none';
+
+            try {
+                // Autenticación real con Firebase
+                await signInWithEmailAndPassword(auth, email, password);
+                // Si es exitoso, el onAuthStateChanged (arriba) detectará el cambio automáticamente
+            } catch (error) {
+                console.error("Error al iniciar sesión:", error.code);
+                // Mostrar mensaje de error
+                loginError.style.display = 'flex';
+                loginError.innerHTML = '<i class="ph-fill ph-warning-circle"></i> Credenciales incorrectas o usuario no registrado.';
             }
         });
     }
+
+    // 3. Manejo del botón de Cerrar Sesión (Si tienes uno con id="btn-logout")
+    const btnLogout = document.getElementById('btn-logout');
+    if(btnLogout) {
+        btnLogout.addEventListener('click', () => {
+            signOut(auth).then(() => {
+                // Sesión cerrada, el onAuthStateChanged ocultará la app automáticamente
+                console.log("Sesión cerrada");
+            }).catch((error) => {
+                console.error("Error al cerrar sesión", error);
+            });
+        });
+    }
 });
+
 
 
 // ===================================================
